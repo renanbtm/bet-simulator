@@ -1,0 +1,32 @@
+.live {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+    color: white;
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+    background-color: #2464EB;
+    transition-delay: 0.01s;
+}
+
+.live:hover .result {
+    display: block;
+}
+
+.live:hover .time {
+    display: block;
+}
+
+.result {
+    display: none;
+    margin: 0 1rem;
+}
+
+.time {
+    display: none;
+    margin: 0 2rem;
+}

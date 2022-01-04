@@ -1,0 +1,17 @@
+@keyframes blynk {
+    0% {
+        background-color: red;
+    }
+    50% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: red;
+    }
+}
+
+.liveIndicator {
+    animation-name: blynk;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
