@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from 'next/image'
 import AuthInput from "../components/auth/AuthInput";
 import { warningIcon } from "../components/icons";
 import useAuth from "../data/hooks/useAuth";
@@ -30,8 +31,9 @@ export default function Autenticacao() {
     return (
         <div className={`flex w-full h-screen justify-center items-center`}>
             <div className={`hidden h-screen md:block lg:w-2/3 w-1/2`}>
-                <img src="https://source.unsplash.com/random" alt="Imagem da tela de autenticação"
-                    className={`h-screen w-full object-cover`} />
+                <div className={`h-screen w-full relative`}>
+                    <Image src="/homepage.jpg" layout='fill' objectFit='cover' alt="Imagem da tela de autenticação" />
+                </div>
             </div>
             <div className={`w-full md:w-1/2 lg:w-1/3 m-10`}>
                 <h1 className={`text-3xl font-bold mb-5 underline`}>

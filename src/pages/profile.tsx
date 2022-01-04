@@ -1,7 +1,8 @@
 import Layout from "../components/template/Layout";
 import useAuth from "../data/hooks/useAuth";
 import LeagueTitle from "../components/template/LeagueTitle"
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link"
 import DepositModal from "../components/template/DepositModal"
 import WithdrawModal from "../components/template/WithdrawModal";
 import { checkIcon, xIcon } from "../components/icons";
@@ -58,7 +59,7 @@ export default function Profile() {
                             <ul>
                                 {ctx.user.bets.map((bet, index) => {
                                     return (
-                                        <div className={`flex`}>
+                                        <div className={`flex`} key={bet.date}>
                                             <li key={bet.date.seconds} className={`flex-1 flex flex-col border border-gray-400 dark:border-white rounded-md p-2 mb-2`}>
                                                 <div className={`flex`}>
                                                     <div className={`flex items-center justify-center w-1/12`}>
@@ -86,7 +87,7 @@ export default function Profile() {
 
                                                     <div className={`flex items-center w-8/12 flex-wrap`}>
                                                         {bet.guesses.map(guess => {
-                                                            return <div className={`border border-gray-400 dark:border-white m-1 p-1 bg-gray-100 dark:bg-gray-700 flex flex-col text-sm`}
+                                                            return <div key={guess.id + bet.date} className={`border border-gray-400 dark:border-white m-1 p-1 bg-gray-100 dark:bg-gray-700 flex flex-col text-sm`}
                                                                 style={{ width: "31%", margin: "1%" }}>
                                                                 <span className={`text-center italic mb-1`}>{guess.market_name}</span>
                                                                 <div className={`flex flex-col flex-1 justify-center items-center`}>
@@ -141,7 +142,7 @@ export default function Profile() {
             <div className={`w-screen h-screen flex flex-col items-center justify-center`}>
                 <h1 className={`text-6xl my-5`}>404 - Page not found</h1>
                 <p className={`text-xl my-5`}>Você precisa acessar a sua conta antes.</p>
-                <a href="/" className={`underline text-blue-500`}>Ir para a página inicial</a>
+                <Link href="/">Ir para a página inicial</Link>
             </div>
     )
 }

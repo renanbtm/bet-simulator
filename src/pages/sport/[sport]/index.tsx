@@ -27,7 +27,7 @@ export default function Sport() {
             }
         }
         if (router.query.sport) loadSportBets()
-    }, [router?.asPath])
+    }, [router?.asPath, router?.query.sport])
 
     return (
         data ? <Layout titulo={String(data.name)} subtitulo="">

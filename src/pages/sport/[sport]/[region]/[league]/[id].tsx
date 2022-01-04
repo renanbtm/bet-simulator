@@ -44,7 +44,7 @@ export default function League() {
             }
         }
         if (router.query.sport) loadLeague()
-    }, [router?.asPath])
+    }, [router?.asPath, router?.query.sport])
 
     return (
         data && markets && selectionsSize ? (

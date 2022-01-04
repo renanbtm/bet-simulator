@@ -1,4 +1,3 @@
-import OddSquareSize from "../../../functions/marketsOddsSize"
 import useTicket from "../../data/hooks/useTicket"
 import OddSquare from "./OddSquare"
 
@@ -10,6 +9,8 @@ interface MatchBetCardProps {
 
 export default function MatchBetCard(props: MatchBetCardProps) {
 
+    const ctx = useTicket()
+
     return (
         <div className={`w-full mb-4 p-2 flex flex-col rounded-lg bg-gray-200 dark:bg-gray-800
         ${props.live && "border-2 border-red-500"}`}>
@@ -17,7 +18,6 @@ export default function MatchBetCard(props: MatchBetCardProps) {
             <div className={`flex flex-wrap`}>
                 {props.market.selections.map(selection => {
                     if (props.live) {
-                        const ctx = useTicket()
                         ctx.ticket.guesses.forEach(guess => {
                             if (guess.selection_id === +selection.id) guess.price = selection.price
                         })

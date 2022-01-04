@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from 'next/image'
 import { svgLinks } from "../icons/svgLinksMap"
 
 interface MenuItemProps {
@@ -16,7 +17,7 @@ export default function MenuItem(props: MenuItemProps) {
             {
                 props.sport ? <Link href={props.sport.url}>
                     <a className={`flex justify-center lg:justify-start items-center`}>
-                        <img src={svgLinks[props.sport.id]} className={`h-8 w-8 lg:h-10 lg:w-10`} />
+                        <Image src={svgLinks[props.sport.id]} width={32} height={32} className={`h-8 w-8 lg:h-10 lg:w-10`} alt="Ícone do esporte" />
                         <span className={`hidden lg:block text-s font-light text-center ml-3`}>
                             {props.sport.name}
                         </span>

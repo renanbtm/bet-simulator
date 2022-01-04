@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from 'next/image'
 import { useEffect, useState } from "react";
 import { svgLinks } from "../icons/svgLinksMap";
 import EventCard from "../template/EventCard";
@@ -35,7 +36,7 @@ export default function TopEvents() {
                     return (
                         <button key={sport.id} className={`flex ${selectedSport === sport.id ? "bg-gray-300 dark:bg-gray-800" : ""} rounded-lg p-2 m-2`}
                             onClick={() => setSelectedSport(sport.id)}>
-                            <img className={`mr-2`} src={svgLinks[sport.id]} alt="Representação gráfica do esporte" />
+                            <Image className={`mr-2`} src={svgLinks[sport.id]} width={24} height={24} alt="Representação gráfica do esporte" />
                             {sport.name}
                         </button>
                     )

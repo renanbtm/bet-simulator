@@ -21,7 +21,7 @@ export default function EventCard(props: EventCardProps) {
 
             <div className={`border-r-2 mr-4 dark:border-gray-600`}></div>
 
-            <Link href={props.event.url}>
+            <Link href={props.event.url} passHref>
                 <div className={`flex flex-1 flex-col cursor-pointer`}>
                     {props.event.participants.map(participant => {
                         return <span key={props.event.id + participant.name}>{participant.name}</span>
@@ -44,7 +44,7 @@ export default function EventCard(props: EventCardProps) {
                                 })
                             })
                         } else {
-                            return [...Array(props.selectionsSizes[index])].map(_ => <EmptyOddSquare />)
+                            return [...Array(props.selectionsSizes[index])].map((_, index) => <EmptyOddSquare key={index} />)
                         }
                     }) :
                     props.event.markets.map(market => {
