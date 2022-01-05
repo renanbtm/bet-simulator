@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useAuth from "../../data/hooks/useAuth"
 import useTicket from "../../data/hooks/useTicket"
 import styles from "../../styles/MultipleCard.module.css"

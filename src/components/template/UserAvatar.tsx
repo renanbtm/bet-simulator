@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link"
 import useAuth from "../../data/hooks/useAuth";
 import User from "../../model/User";
@@ -11,8 +11,17 @@ interface userAvatarProps {
 export default function UserAvatar(props: userAvatarProps) {
 
     const [showDatails, setShowDetails] = useState<boolean>(false)
-    const { logout } = useAuth()
-    const ctx = useAuth()
+    const { logout, user } = useAuth()
+
+    const [_, setTime] = useState(Date.now());
+
+    // TODO Arrumar essa gambiarra
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 500);
+        return () => {
+            clearInterval(interval);
+        }
+    }, [])
 
     return (
         <div className={`flex flex-row-reverse text-white items-center`}>
@@ -20,8 +29,7 @@ export default function UserAvatar(props: userAvatarProps) {
                 {userIcon}
                 {showDatails ? chevronUpIcon : chevronDownIcon}
             </div>
-            {/* <img src={props.user.imageUrl ? props.user.imageUrl : "/logo.png"} alt="User icon" className={`w-8 h-8 rounded-full`} /> */}
-            <span className={`mr-5 font-bold`}>SALDO: R$ {ctx.user.balance.toLocaleString("pt-br", { style: "decimal", maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
+            <span className={`mr-5 font-bold`}>SALDO: R$ {user.balance.toLocaleString("pt-br", { style: "decimal", maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
             {showDatails && <div className={`absolute top-12 border p-2 text-black dark:text-white
             bg-gray-200 border-gray-400 dark:bg-gray-600 dark:border-gray-800`}>
                 <div className={`flex w-60 items-center justify-between`}>

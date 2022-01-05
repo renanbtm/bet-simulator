@@ -126,8 +126,10 @@ export default class User {
     async updateBetStatus(index: number, status: string, returns: number) {
         this.bets[index].status = status
         this.bets[index].returns = returns
+        if (status === "w") this.balance += returns
         try {
             await firebase.firestore().collection("users").doc(this.uid).update({
+                balance: this.balance,
                 bets: this.bets
             })
         } catch {
