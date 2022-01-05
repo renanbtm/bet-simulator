@@ -6,6 +6,7 @@ import Link from "next/link"
 import DepositModal from "../components/template/DepositModal"
 import WithdrawModal from "../components/template/WithdrawModal";
 import { checkIcon, xIcon } from "../components/icons";
+import InvestimentStatistic from "../components/template/InvestimentStatistic";
 
 export default function Profile() {
 
@@ -24,6 +25,14 @@ export default function Profile() {
         }
         setUnsolvedBets(unsolveds)
     }, [unsolvedBets])
+
+    function unsolvedBetsAmount() {
+        var counter = 0
+        ctx.user.bets.forEach(bet => {
+            if (!bet.status) counter += 1
+        })
+        return counter
+    }
 
     return (
         ctx.user ?
@@ -150,8 +159,8 @@ export default function Profile() {
 
                 <div className={`mt-10`}>
                     <LeagueTitle name="Estatísticas" />
-                    <div className={`border h-60 border-t-0 p-4 overflow-scroll`}>
-                        ...
+                    <div className={`border h-96 border-t-0 p-4 overflow-scroll`}>
+                        <InvestimentStatistic transfers={ctx.user.transfers} balance={ctx.user.balance} unsolvedBets={unsolvedBetsAmount()} />
                     </div>
                 </div>
 
