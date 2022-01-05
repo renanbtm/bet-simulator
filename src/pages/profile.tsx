@@ -1,7 +1,7 @@
 import Layout from "../components/template/Layout";
 import useAuth from "../data/hooks/useAuth";
 import LeagueTitle from "../components/template/LeagueTitle"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link"
 import DepositModal from "../components/template/DepositModal"
 import WithdrawModal from "../components/template/WithdrawModal";
@@ -13,6 +13,17 @@ export default function Profile() {
 
     const [showDepositModal, setShowDepositModal] = useState(false)
     const [showWithdrawModal, setShowWithdrawModal] = useState(false)
+    const [unsolvedBets, setUnsolvedBets] = useState<number>(null)
+
+    useEffect(() => {
+        var unsolveds = 0
+        if (ctx.user) {
+            ctx.user.bets.forEach(bet => {
+                if (!bet.status) unsolveds += 1
+            })
+        }
+        setUnsolvedBets(unsolveds)
+    }, [unsolvedBets])
 
     return (
         ctx.user ?
@@ -116,10 +127,18 @@ export default function Profile() {
                                                     </div>
                                                 </div>
                                             </li>
-                                            <div className={`flex flex-col items-center justify-around p-1`}>
-                                                <button onClick={() => ctx.user.updateBetStatus(index, "w", bet.value * bet.odd)} className={`border rounded-full border-green-600`}>{checkIcon}</button>
-                                                <button onClick={() => ctx.user.updateBetStatus(index, "l", 0)} className={`border rounded-full border-red-600`}>{xIcon}</button>
-                                            </div>
+                                            {!bet.status &&
+                                                <div className={`flex flex-col items-center justify-around p-1`}>
+                                                    <button onClick={() => {
+                                                        ctx.user.updateBetStatus(index, "w", bet.value * bet.odd)
+                                                        setUnsolvedBets(unsolvedBets - 1)
+                                                    }} className={`border rounded-full border-green-600`}>{checkIcon}</button>
+                                                    <button onClick={() => {
+                                                        ctx.user.updateBetStatus(index, "l", 0)
+                                                        setUnsolvedBets(unsolvedBets - 1)
+                                                    }} className={`border rounded-full border-red-600`}>{xIcon}</button>
+                                                </div>
+                                            }
                                         </div>
                                     )
                                 })}
