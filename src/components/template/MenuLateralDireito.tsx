@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { selectedOdds } from "../../../functions/selectedOdds"
+import useAuth from "../../data/hooks/useAuth"
 import useTicket from "../../data/hooks/useTicket"
 import MultipleCard from "./MultipleCard"
 import TicketCard from "./TicketCard"
@@ -8,6 +9,7 @@ export default function MenuLateralDireito() {
 
     const [tab, setTab] = useState<0 | 1>(0)
     const ctx = useTicket()
+    const ctxAuth = useAuth()
     const [_, setTime] = useState(Date.now());
 
     // TODO Arrumar essa gambiarra
@@ -43,14 +45,34 @@ export default function MenuLateralDireito() {
                                     blocking={ctx.ticket.blockingMultiples.includes(guess.id)} />
                             })}
                         </div> :
-                    <div className={`w-full h-20 bg-gray-100 dark:bg-gray-700 flex items-center justify-center`}>
-                        <span className={`text-sm`}>Nada por aqui ainda!</span>
-                    </div>
+                    (
+                        !ctxAuth.user ?
+                            <div className={`w-full h-20 bg-gray-100 dark:bg-gray-700 flex items-center justify-center`}>
+                                <span className={`text-sm`}>Faça login para ver suas apostas</span>
+                            </div> :
+                            ctxAuth.user.bets.map(bet => {
+                                return !bet.status ?
+                                    <div className="flex flex-col border border-black dark:border-white my-2">
+                                        <div className={`flex justify-between border-b border-black dark:border-white`}>
+                                            <span className={`px-2 py-1`}>R$ {bet.value.toFixed(2)}</span>
+                                            <span className={`px-2 py-1`}>x{bet.odd.toFixed(2)}</span>
+                                        </div>
+                                        {bet.guesses.map(guess => {
+                                            return < div key={guess.id + bet.date} className={`w-full border-black dark:border-white bg-gray-100 dark:bg-gray-700 flex flex-col items-center p-2`}>
+                                                <span className={`text-xs italic`}>{guess.market_name}</span>
+                                                <span className={`text-xs`}>{guess.event_name}</span>
+                                                <span className={`text-sm font-bold`}>{guess.selection_name}</span>
+                                            </div>
+                                        })}
+                                    </div>
+                                    : null
+                            })
+                    )
                 }
                 {ctx.ticket.guesses.length >= 2 && <div>
                     <MultipleCard />
                 </div>}
             </div>
-        </aside>
+        </aside >
     )
 }
