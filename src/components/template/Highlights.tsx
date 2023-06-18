@@ -42,7 +42,7 @@ export default function Highlights() {
             <div className={`flex h-56`}>
                 {highlights.map(highlight => {
                     return (
-                        <div key={highlight.url} className={`w-1/3 m-2`} style={{ backgroundImage: `url(${highlight.image})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+                        <div key={highlight.url} className={`w-1/3 m-2`} style={{ backgroundImage: `url(${highlight.eventImage})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
                             <div className={`flex relative flex-col p-3 bg-gray-700 bg-opacity-60 w-full h-full`}>
                                 {highlight.isLiveNow ?
                                     <div className={`${styles.live}`}>
